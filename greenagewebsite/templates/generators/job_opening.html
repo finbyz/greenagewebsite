@@ -1,0 +1,33 @@
+{% extends "templates/web.html" %}
+
+{% block breadcrumbs %}
+	{% include "templates/includes/breadcrumbs.html" %}
+{% endblock %}
+{% block page_content %}
+<div class="container">
+	{%- if description -%}
+	<div class="row">
+		<div class="col-md-12">
+		<h3>Job Description</h3>
+			{{ description }}
+		</div>
+	</div>
+	{% endif %}
+	{%- if skills -%}
+	<div class="row mt-50">
+		<div class="col-md-12">
+		<h3>Key Skills</h3>
+			{{ skills }}
+		</div>
+	</div>
+	{% endif %}
+</div>
+
+<div class="container">
+	<div class="button mb-50">
+		<a class="greenage-button" href='/job_application?new=1'>
+			<span>{{ _("Apply Now") }}</span>
+		</a>
+	</div>
+</div>
+{% endblock %}

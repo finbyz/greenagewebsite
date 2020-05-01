@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include greenagewebsite *.css
+recursive-include greenagewebsite *.csv
+recursive-include greenagewebsite *.html
+recursive-include greenagewebsite *.ico
+recursive-include greenagewebsite *.js
+recursive-include greenagewebsite *.json
+recursive-include greenagewebsite *.md
+recursive-include greenagewebsite *.png
+recursive-include greenagewebsite *.py
+recursive-include greenagewebsite *.svg
+recursive-include greenagewebsite *.txt
+recursive-exclude greenagewebsite *.pyc

@@ -1,0 +1,33 @@
+{% for page in footer_items %}
+<div class="col-md-12 col-sm-12 footer-group">
+	{% if not page.parent_label -%}
+		<div data-label='{{ page.label }}'>
+		<a {% if not page.child_items -%} href="{{ (page.url or '')|abs_url }}" {%- endif %}
+		{% if page.child_items %} onclick="return false;" {% endif %}
+		{{ page.target or ''}}>	</a>
+		{%- if page.child_items -%}
+			<p class="footer-title t-white">{{ page.label }}</p>
+		
+			<ul class="list-unstyled float">
+			{%- for child in page.child_items -%}
+				<li class="footer-child-item right-line" data-label='{{ child.label }}'>
+				<p class="footer-txt-md">
+					<a href="{{ child.url | abs_url }}"
+							{% if child.target %}target="_blank"{% endif %}><img src="/svg/fa-angle-right.svg" class="arrow-img" alt="Greenage" title="Arrow">
+							<span class="t-gray">
+								{{ child.label }}
+							</span>
+					</a>
+						</p>
+				</li>
+			{%- endfor -%}
+			</ul>
+		{%- else -%}
+		<p class="footer-title t-white">{{ page.label }}</p>
+		</a>
+		{%- endif -%}
+		</div>
+	{%- endif -%}
+	</div>
+{% endfor %}
+

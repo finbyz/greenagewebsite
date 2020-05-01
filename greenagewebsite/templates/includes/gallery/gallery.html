@@ -1,0 +1,40 @@
+
+{% if sub_title %}
+<h4 class="text-muted">{{ sub_title }}</h4>
+{% endif %}
+{% if not result -%}
+    <div class="text-muted no-results" style="min-height: 300px;">
+				<i class="mega-octicon octicon-telescope"></i>
+    		{{ no_result_message or _("Nothing to show") }}
+    </div>
+{% else %}
+<div class="container">
+    <div class="col-md-12 justify-content-center mb-10 gallery-category-main">
+            <div class="gallery-category-button">
+                <button type="button" class="greenage-button filter" data-rel="all">
+                        <span>ALL</span>
+                </button>
+            </div>
+            {% for category in gallery_category %}
+            <div class="gallery-category-button">
+                <button type="button" class="greenage-button filter parent-category" data-rel="{{ category.name }}">
+                        <span>{{ category.name }}</span>
+                </button>
+            </div>
+            {% endfor %}
+			
+        </div>
+		<div class="col-md-12 justify-content-center mb-10 gallery-category-main">
+			{% for category in gallery_sub_category %}
+			<div class="gallery-category-button gallery-sub-category-button {{category[1]}} d-none">
+				
+                <button type="button" class="btn-sub-category filter" data-rel="{{ category[2] }}">
+                        <span>{{ category[0] }}</span>
+                </button>
+				
+            </div>
+			{% endfor %}
+		</div>
+    </div>
+</div>
+{%- endif %}

@@ -1,0 +1,109 @@
+<div class="web-sidebar">
+	<!-- <div class="your-account-info-sidebar">
+		<div class="row">
+			<div class="col-xs-2">
+				<span class="user-image-sidebar"></span>
+			</div>
+			<div class="col-xs-10">
+				<div class="web-sidebar-user">{{ fullname }}</div>
+				<a href="/?cmd=web_logout">
+					<div class="text-muted small">
+						{{ _("Logout") }}</div>
+				</a>
+			</div>
+		</div>
+	</div> -->
+
+	<div class="sidebar-items">
+		<nav class="side-nav side-nav-left slide-nav static-nav side-nav-open">
+			<div class="side-nav-inner-setting">
+				<ul class="list-unstyled side-nav-list">
+					{% if sidebar_title %}
+					<li class="title clearfix">
+						{{ sidebar_title }}
+					</li>
+					{% endif %}
+					{% for item in sidebar_items -%}
+					<li class="sidebar-item clearfix">
+						{% if item.type != 'input' %}
+							<a href="{{ item.route }}" class="gray {{ 'active' if pathname==item.route else '' }}"
+								{% if item.target %}target="{{ item.target }}"{% endif %}>
+								{{ _(item.title or item.label) }}
+							</a>
+						{% else %}
+							<form action='{{ item.route }}' style="margin-right: 15px;">
+								<input name='q' class='form-control' type='text' style="outline: none"
+									placeholder="{{ _(item.title or item.label) }}">
+							</form>
+						{% endif %}
+					</li>
+					{%- endfor %}
+					{% if frappe.user != 'Guest' %}
+					<li class="sidebar-item clearfix">
+						<a href="/me">{{ _("My Account") }}</a>
+					</li>
+					{% endif %}
+				</ul>
+			</div>
+		</nav>
+	</div>
+	<!-- <div class="sidebar-items">
+		<ul class="list-unstyled">
+			{% if sidebar_title %}
+			<li class="title">
+				{{ sidebar_title }}
+			</li>
+			{% endif %}
+			{% for item in sidebar_items -%}
+			<li class="sidebar-item">
+				{% if item.type != 'input' %}
+					<a href="{{ item.route }}" class="gray {{ 'active' if pathname==item.route else '' }}"
+						{% if item.target %}target="{{ item.target }}"{% endif %}>
+						{{ _(item.title or item.label) }}
+					</a>
+				{% else %}
+					<form action='{{ item.route }}' style="margin-right: 15px;">
+						<input name='q' class='form-control' type='text' style="outline: none"
+							placeholder="{{ _(item.title or item.label) }}">
+					</form>
+				{% endif %}
+			</li>
+			{%- endfor %}
+			{% if frappe.user != 'Guest' %}
+			<li class="sidebar-item">
+				<a href="/me">{{ _("My Account") }}</a>
+			</li>
+			{% endif %}
+		</ul>
+	</div> -->
+</div>
+
+<script>
+frappe.ready(function() {
+	$('.sidebar-item a').each(function(index) {
+	        if(this.href.trim() == window.location)
+	            $(this).addClass("active");
+	    });
+		/* ===================================
+		SideBar Menu On click
+		====================================== */
+		var $menu_left = $(".side-nav-left");
+		var $toggler = $("#menu_bars");
+		if ($("#menu_bars").length) {
+			$("#side-nav").addClass("side-nav-push");
+
+			if($toggler.hasClass("left")){
+				$toggler.on("mouseenter", function (e) {
+					$(this).toggleClass("active");
+
+					$menu_left.toggleClass("side-nav-open");
+					e.stopPropagation();
+				});
+				$menu_left.on("mouseleave", function (e) {
+					$toggler.toggleClass("active");
+					$menu_left.toggleClass("side-nav-open");
+				});
+			}
+		}    
+	});
+</script>

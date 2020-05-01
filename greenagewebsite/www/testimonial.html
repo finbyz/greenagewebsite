@@ -1,0 +1,38 @@
+<div class="mt-50"></div>
+<div class="container">
+	<div class="row">
+		<div class="col-md-4 col-sm-4 col-xs-12">
+			<h2 class="t-blue pt-20 pb-20">
+				<strong>
+					What Our Customer Says
+				</strong>
+			</h2>
+		</div>
+		<div class="col-md-8 col-sm-8 col-xs-12">
+			<div class="testimonials-img">
+				<img src="/svg/quotation-marks.svg">
+			</div>
+			<div class="owl-carousel testimonial-carousel">
+			  <!--   Start Testimonials -->
+			  <!--   Testimonial 1 -->
+			  	{% set testimonial_doc = frappe.get_doc("Testimonial Detail", "Testimonial Detail") %}
+				{% for i in testimonial_doc.get({"doctype":"Testimonial List"}) %}
+				<div class="single-testimonial">
+			    	<div class="testimonials-wrapper">
+				      	<h4>{{ i.description }}</h4>
+						<div class="testimonials-blob"></div>
+			      		<div class="testimonials-person-info text-center pt-20">
+				        	<p class="text-center">
+				        		<strong>{{ i.contact_person_name }}</strong><br/>{{ i.designation }}</p>
+				        	<h3 class="text-center t-blue">
+				        		<strong>{{ i.customer }}</strong>
+				        	</h3>
+			      		</div>
+			    	</div>
+			  	</div>
+				{% endfor %}
+			  <!--   End Testimonials -->
+			</div>			
+		</div>
+	</div>
+</div>

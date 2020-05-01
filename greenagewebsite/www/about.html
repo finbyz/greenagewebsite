@@ -1,0 +1,81 @@
+{% extends "templates/web.html" %}
+
+{% block title %}About Us{% endblock %}
+{% block page_sidebar %}
+{% include "templates/pages/web_sidebar.html" %}
+{% endblock %}
+{% block page_content %}
+
+<article itemscope itemtype ="http://schema.org/AboutPage" class="about-content">
+	<div class="row">
+		<div class="first-part mt-3e img-uncover" style="background: url(/img/about-header.jpg);width:100%">
+			<div class="container">
+				<h1 class="title-underline main-title t-white">ABOUT</h1>
+			</div>
+		</div>
+	</div>
+	<div itemprop="description" class="container">
+	{{ doc.company_introduction or """<p>Some Introduction about your company that you would
+			like your website visitor to know.
+			More people than you think will read your About page.
+			People always like to know who the are doing business with.
+			Be authentic and avoid using jargon like 'value added services' etc.
+			Be sure to update your company history and
+			list of key team members in Website > About Us Settings</p>""" }}
+
+	
+	{% if doc.get({"doctype":"Company History"}) %}
+	<div class="text-center pb-20 title-underline"><h2 class="t-blue">{{ doc.company_history_heading or "Company History" }}</h2></div>
+	<div class="timeline">
+	{% for d in doc.get({"doctype":"Company History"}) %}	
+		 <div class="container {{ loop.cycle('left', 'right') }}">
+			<div class="timeline-icon icon">
+				<!-- {% if d.image %}
+				<img itemtype="image" alt="{{ d.title }}" title="{{ d.title }}" src="{{ d.image }}" class="greenage-zoomin" alt="greenage-icon">
+				{% endif %} -->
+				{{ d.svg_icon or '' }}
+			</div>
+
+			<div class="content greenage-fadeinup">
+			  <h3>{{ d.year }}</h3>
+			  <h4 class="bold">{{ d.title }}</h4>
+			  <p>{{ d.highlight }}</p>
+			</div>
+		  </div>
+	{% endfor %}
+	</div>
+	{% endif %}
+	{% if doc.middle_content %}
+		<div>{{ doc.middle_content }}</div>
+	{% endif %}
+	{% if doc.get({"doctype":"About Us Team Member"}) %}
+<section id="team-greenage">
+	<div class="text-center pb-20"><h2 class="title-underline t-blue">{{ doc.team_members_heading or "Key Persons" }}</h2></div>
+	<div class="team-member">
+	<div class="row row-flex" itemscope itemtype="http://schema.org/Person">
+		{% for d in doc.get({"doctype":"About Us Team Member"}) %}
+		<div class="mg-bottom col-md-6 col-sm-6 col-xs-12">
+			<div class="col-md-4 col-sm-4 col-xs-4 ">
+				<div>
+				{% if d.image_link %}
+					<img src="{{ d.image_link }}" alt="{{ d.full_name }}" title="{{ d.full_name }}" itemprop="image" class="grayscale">
+				{% else %}
+					<img src="/files/person-image.jpg" alt="{{ d.full_name }}" title="{{ d.full_name }}" style="" itemprop="image" class="grayscale">
+				{% endif %}
+				</div>
+			</div>
+			<div class="col-md-8 col-sm-8 col-xs-8 person-info">
+				<h3 itemprop="name">{{ d.full_name }}</h3>
+				<h4>{{ d.designation or '' }}</h4>
+				<p itemprop="description" class="about_bio text-justify">{{ d.bio or '' }}</p>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+	</div>
+	</section>
+	{% endif %}
+	{{ doc.footer or "" }}
+	</div>
+</article>
+{% endblock %}
